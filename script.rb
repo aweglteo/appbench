@@ -34,10 +34,14 @@ opts = OptionParser.new do |o|
     @concurrency = i.to_i
   end  
 end
+
 opts.parse!
 
-puts "Sorry, designate target rails application. now supporting these application below."; puts "  #{APP_TYPES.map(&:to_s).join(" ")}"; exit if @tar_app == ""
-
+if @tar_app.empty?
+  puts "Sorry, designate target rails application with -a option. for now supporting these applications below."
+  puts "  #{APP_TYPES.map(&:to_s).join(" ")}"
+  exit
+end
 
 config = open(__dir__ + '/config.yml', 'r') do |f|
   YAML.load(f)
@@ -65,4 +69,12 @@ unless APP_TYPES.include?(@tar_app.intern)
   puts "Error, unsurpotted application. For now only surporting [#{APP_TYPES.map(&:to_s).join(" ")}]"
   exit
 end
+
+# write.envto conf
+
+# build docker-compose.app.yml
+@session = Docker::Compose::Session.new(dir: __dir__, file: "docker-compose.#{@tar_app}.yml")
+@session.build
+@session.up
+
 

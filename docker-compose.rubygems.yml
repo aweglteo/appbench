@@ -14,13 +14,19 @@ services:
       - "11211:11211"
   rubygems:
     build:
-      context: .
+      context: ./docker/image/rubygemsorg
       dockerfile: "Dockerfile"
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
     environment:
+      - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
+      - APPBENCH_DATABASE=$APPBENCH_DATABASE
+      - APPBENCH_BENCHTOOL=$APPBENCH_BENCHTOOL
+      - APPBENCH_REQPERSEC=$APPBENCH_REQPERSEC
+      - APPBENCH_CPROF=$APPBENCH_CPROF
+      - APPBENCH_RRROF=$APPBENCH_RRROF
       - SECRET_KEY_BASE=422813a913bb91e7b9bbce1cc499e0520bc1f43682ba305b54a307b3050ea4f6fa61dbd5c9f862ad0b5115b9efc47c636ea8b541956a175ab855558f6dba03fb
     depends_on:
       - search
