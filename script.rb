@@ -2,7 +2,6 @@
 
 require 'optparse'
 require 'yaml'
-require 'pry'
 
 require 'docker/compose'
 
