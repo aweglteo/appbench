@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    backticks (0.5.0)
+    docker-compose (0.5.1)
+      backticks (~> 0.4)
+
+PLATFORMS
+  x86_64-darwin-18
+
+DEPENDENCIES
+  docker-compose (~> 0.5.0)
+
+BUNDLED WITH
+   2.2.22
