@@ -4,7 +4,7 @@ services:
   redmine:
     build:
       context: ./docker/image/redmine
-        dockerfile: "Dockerfile"
+      dockerfile: "Dockerfile"
     environment:
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
       - APPBENCH_DATABASE=$APPBENCH_DATABASE
