@@ -1,0 +1,23 @@
+version: '2'
+services:
+  discourse:
+    build:
+      context: ./docker/image/discourse
+      dockerfile: "Dockerfile"
+    volumes:
+      - 'postgresql_data:/var/lib/postgresql'
+    ports:
+      - '3000:3000'
+    environment:
+      - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
+      - APPBENCH_DATABASE=$APPBENCH_DATABASE
+      - APPBENCH_BENCHTOOL=$APPBENCH_BENCHTOOL
+      - APPBENCH_REQPERSEC=$APPBENCH_REQPERSEC
+      - APPBENCH_CPROF=$APPBENCH_CPROF
+      - APPBENCH_RRROF=$APPBENCH_RRROF
+    stdin_open: true
+    tty: true
+volumes:
+  postgresql_data:
+    driver: local
+    
