@@ -11,6 +11,7 @@ APP_TYPES = %i(discourse redmine rubygems)
 DB_TYPES = %i(postgres)
 APPSERVER_TYPES = %i(puma)
 
+@tar_app = ""
 @tar_ruby_dir = nil
 @result_file = nil
 
@@ -34,6 +35,9 @@ opts = OptionParser.new do |o|
   end  
 end
 opts.parse!
+
+puts "Sorry, designate target rails application. now supporting these application below."; puts "  #{APP_TYPES.map(&:to_s).join(" ")}"; exit if @tar_app == ""
+
 
 config = open(__dir__ + '/config.yml', 'r') do |f|
   YAML.load(f)
