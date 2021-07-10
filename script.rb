@@ -1,6 +1,7 @@
 require 'optparse'
 require 'yaml'
 require "pathname"
+require "pry"
 
 # supporting middleware
 APP_TYPES = %i(discourse redmine rubygems)
@@ -51,13 +52,13 @@ end
   end
 end
 
-if DB_TYPES.include?(config["database"])
+unless DB_TYPES.include?(config["database"]&.intern)
   puts "Error, unsurpotted database, For now only surporting postgres"
   exit
 end
 
-if APPSERVER_TYPES.include?(config["appserver"])
-  puts "Error, unsurpotted database, For now only surporting postgres"
+unless APPSERVER_TYPES.include?(config["appserver"]&.intern)
+  puts "Error, unsurpotted application server, For now only surporting puma"
   exit
 end
 

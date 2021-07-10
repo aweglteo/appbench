@@ -1,11 +1,10 @@
 # designate database. for now only postgres
 database: postgres
 # designate appserver. for now only supporting puma
-appserver: puma
+appserver: unicorn
 # designate benchmark tool. for now only supporting appach bench
 benchtool: ab
 result: # for now, supporting throughput, cprofile, rubyprofile
   - throughput
   - cprofile
   - rubyprofile
-
