@@ -65,11 +65,6 @@ RUN useradd redmine -s /bin/bash -m -U &&\
 
 WORKDIR /var/www/redmine
 
-RUN bundle config set --local without 'development test' && bundle install --jobs 3 --retry 5
-RUN RAILS_ENV=production RAILS_GROUPS=assets SECRET_KEY_BASE=1234 bin/rails assets:precompile
-RUN bundle config set --local without 'development test assets' && bundle clean --force
-
-
 # Install benchmark tools
 RUN apt-get install -y apache2-utils libsqlite3-dev
 
@@ -79,18 +74,20 @@ RUN /etc/init.d/postgresql start &&\
     sleep 5 &&\
     sudo -u postgres -E psql --command "CREATE USER redmine WITH SUPERUSER PASSWORD 'redmine'";
 
+
 # copy setting files
 COPY /script/database.yml /var/www/redmine/config/database.yml
 COPY /script/unicorn.rb /var/www/redmine/config/unicorn.rb
 COPY /script/Gemfile /var/www/redmine/Gemfile
 
+RUN bundle config set --local without 'development test' && bundle install --jobs 3 --retry 5
+RUN bundle config set --local without 'development test' && bundle clean --force
+
 # Copy entrypoint.sh
 COPY /rootfs/opt/appbench /opt/appbench
 RUN chmod -R +x /opt/appbench
 
-
-RUN chown -R redmine -R +x /var/www/redmine
-
+RUN chown -R redmine /var/www/redmine
 
 EXPOSE 80
 
