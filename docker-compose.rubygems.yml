@@ -14,7 +14,7 @@ services:
       - "11211:11211"
   rubygems:
     build:
-      context: ./docker/image/rubygemsorg
+      context: ./docker_image/rubygemsorg
       dockerfile: "Dockerfile"
     ports:
       - "3000:3000"

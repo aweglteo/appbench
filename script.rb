@@ -1,9 +1,8 @@
 require 'optparse'
 require 'yaml'
 require "pathname"
-require "pry"
 
-# supporting middleware
+# supporting settings
 APP_TYPES = %i(discourse redmine rubygems)
 DB_TYPES = %i(postgres)
 APPSERVER_TYPES = %i(puma)
@@ -47,23 +46,23 @@ end
 # check args and config.yml 
 %i(database appserver benchtool result).each do |key|
   if config[key.to_s].nil?
-    puts "Error, check config.yml.  all keys must be designated."
+    puts "Error, check config.yml. all keys must be designated."
     exit
   end
 end
 
 unless DB_TYPES.include?(config["database"]&.intern)
-  puts "Error, unsurpotted database, For now only surporting postgres"
+  puts "Error, unsurpotted database type. For now only surporting postgres"
   exit
 end
 
 unless APPSERVER_TYPES.include?(config["appserver"]&.intern)
-  puts "Error, unsurpotted application server, For now only surporting puma"
+  puts "Error, unsurpotted application server type. For now only surporting puma"
   exit
 end
 
 unless APP_TYPES.include?(@tar_app.intern)
-  puts "Error, unsurpotted application. For now only surporting [#{APP_TYPES.map(&:to_s).join(" ")}]"
+  puts "Error, unsurpotted application type. For now only surporting [#{APP_TYPES.map(&:to_s).join(" ")}]"
   exit
 end
 
@@ -77,4 +76,3 @@ end
 
 `docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} build`
 `docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} up`
-

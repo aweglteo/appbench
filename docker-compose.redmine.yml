@@ -3,7 +3,7 @@ version: '2'
 services:
   redmine:
     build:
-      context: ./docker/image/redmine
+      context: ./docker_image/redmine
       dockerfile: "Dockerfile"
     environment:
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
@@ -46,4 +46,4 @@ services:
       # - IMAP_SSL=true
       # - IMAP_INTERVAL=30
     ports:
-    - "10083:80"
+    - "3000:80"
