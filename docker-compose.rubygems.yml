@@ -19,7 +19,7 @@ services:
       context: ./docker_image/rubygemsorg
       dockerfile: "Dockerfile"
     ports:
-      - "3001:3000"
+      - "3000:3000"
     stdin_open: true
     tty: true
     environment:

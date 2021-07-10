@@ -88,6 +88,6 @@ RUN chmod -R +x /opt/appbench
 
 RUN chown -R redmine /var/www/redmine
 
-EXPOSE 80
+EXPOSE 3000
 
-# ENTRYPOINT [ "/opt/appbench/scripts/redmine/entrypoint.sh" ]
+ENTRYPOINT [ "/opt/appbench/scripts/redmine/entrypoint.sh" ]
