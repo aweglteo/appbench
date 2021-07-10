@@ -73,7 +73,7 @@ end
 if User.count > 2
   puts "Only run this script against an empty DB"
 
-  ensure_perf_test_topic_has_right_title!
+  # ensure_perf_test_topic_has_right_title!
   exit
 end
 
@@ -120,4 +120,4 @@ end
 Category.update_stats
 Jobs::PeriodicalUpdates.new.execute(nil)
 
-ensure_perf_test_topic_has_right_title!
+# ensure_perf_test_topic_has_right_title!
