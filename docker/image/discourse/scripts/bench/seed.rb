@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # Based on https://github.com/discourse/discourse/blob/master/script/profile_db_generator.rb
 
 class Array

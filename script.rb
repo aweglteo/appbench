@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 require 'optparse'
 require 'yaml'
-
-require 'docker/compose'
+require "pathname"
 
 # supporting middleware
 APP_TYPES = %i(discourse redmine rubygems)
@@ -69,11 +66,14 @@ unless APP_TYPES.include?(@tar_app.intern)
   exit
 end
 
-# write.envto conf
+# pass benchtool config to DockerContainer thorought .env file
+`echo "APPBENCH_APPSERVER=#{config["appserver"]}" > #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_DATABASE=#{config["database"]}" >> #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_BENCHTOOL=#{config["benchtool"]}" >> #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_REQPERSEC=true" >> #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_RRROF=true" >> #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_CPROF=true" >> #{Pathname(__dir__).join(".env")}`
 
-# build docker-compose.app.yml
-@session = Docker::Compose::Session.new(dir: __dir__, file: "docker-compose.#{@tar_app}.yml")
-@session.build
-@session.up
-
+`docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} build`
+`docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} up`
 
