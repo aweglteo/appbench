@@ -64,7 +64,7 @@ def ensure_perf_test_topic_has_right_title!
   title = "I am a topic used for perf tests"
   # in case we have an old run and picked the wrong topic
   Topic.where(title: title).update_all(title: "Test topic #{SecureRandom.hex}")
-  t = Topic.where(archetype: :regular, posts_count: 30).order(id: :desc).first
+  t = Topic.where(archetype: :regular).order(id: :desc).first
   t.title = title
   t.save!
 end
@@ -73,7 +73,7 @@ end
 if User.count > 2
   puts "Only run this script against an empty DB"
 
-  # ensure_perf_test_topic_has_right_title!
+  ensure_perf_test_topic_has_right_title!
   exit
 end
 
@@ -120,4 +120,4 @@ end
 Category.update_stats
 Jobs::PeriodicalUpdates.new.execute(nil)
 
-# ensure_perf_test_topic_has_right_title!
+ensure_perf_test_topic_has_right_title!

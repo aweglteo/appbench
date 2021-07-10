@@ -3,7 +3,7 @@ version: '2'
 services:
   redmine:
     volumes:
-      - 'postgresql_data:/var/lib/postgresql'
+      - 'redmine_psql_data:/var/lib/postgresql'
     build:
       context: ./docker_image/redmine
       dockerfile: "Dockerfile"
@@ -51,5 +51,5 @@ services:
     ports:
     - "3002:3000"
 volumes:
-  postgresql_data:
+  redmine_psql_data:
     driver: local

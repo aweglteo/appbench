@@ -5,7 +5,7 @@ services:
       context: ./docker_image/discourse
       dockerfile: "Dockerfile"
     volumes:
-      - 'postgresql_data:/var/lib/postgresql'
+      - 'discourse_psql_data:/var/lib/postgresql'
     ports:
       - '3000:3000'
     environment:
@@ -19,6 +19,6 @@ services:
     stdin_open: true
     tty: true
 volumes:
-  postgresql_data:
+  discourse_psql_data:
     driver: local
     

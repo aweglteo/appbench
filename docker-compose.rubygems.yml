@@ -14,7 +14,7 @@ services:
       - "11211:11211"
   rubygems:
     volumes:
-      - 'postgresql_data:/var/lib/postgresql'
+      - 'rubygems_psql_data:/var/lib/postgresql'
     build:
       context: ./docker_image/rubygemsorg
       dockerfile: "Dockerfile"
@@ -35,6 +35,6 @@ services:
       - search
       - cache
 volumes:
-  postgresql_data:
+  rubygems_psql_data:
     driver: local
           

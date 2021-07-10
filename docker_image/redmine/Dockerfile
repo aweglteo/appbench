@@ -69,11 +69,10 @@ WORKDIR /var/www/redmine
 RUN apt-get install -y apache2-utils libsqlite3-dev
 
 RUN chown -R redmine /var/run/postgresql
-# create role "rubygems"
+# create role "redmine"
 RUN /etc/init.d/postgresql start &&\
     sleep 5 &&\
     sudo -u postgres -E psql --command "CREATE USER redmine WITH SUPERUSER PASSWORD 'redmine'";
-
 
 # copy setting files
 COPY /script/database.yml /var/www/redmine/config/database.yml
