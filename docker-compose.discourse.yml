@@ -9,6 +9,7 @@ services:
     ports:
       - '3000:3000'
     environment:
+      - APPBENCH_INSTALL_DIR="/var/www/discourse"
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
       - APPBENCH_DATABASE=$APPBENCH_DATABASE
       - APPBENCH_BENCHTOOL=$APPBENCH_BENCHTOOL

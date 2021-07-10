@@ -17,10 +17,11 @@ services:
       context: ./docker_image/rubygemsorg
       dockerfile: "Dockerfile"
     ports:
-      - "3000:3000"
+      - "3001:3000"
     stdin_open: true
     tty: true
     environment:
+      - APPBENCH_INSTALL_DIR="/var/www/rubygems"
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
       - APPBENCH_DATABASE=$APPBENCH_DATABASE
       - APPBENCH_BENCHTOOL=$APPBENCH_BENCHTOOL

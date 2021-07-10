@@ -100,9 +100,9 @@ categories = 10.times.map do |i|
 end
 
 puts
-puts "Creating 100 topics"
+puts "Creating 200 topics"
 
-topic_ids = 100.times.map do
+topic_ids = 200.times.map do
   post = PostCreator.create(users.sample, raw: sentence, title: sentence[0..50].strip, category:  categories.sample.id, skip_validations: true)
 
   putc "."
@@ -110,8 +110,8 @@ topic_ids = 100.times.map do
 end
 
 puts
-puts "creating 500 replies"
-500.times do
+puts "creating 2000 replies"
+2000.times do
   putc "."
   PostCreator.create(users.sample, raw: sentence, topic_id: topic_ids.sample, skip_validations: true)
 end

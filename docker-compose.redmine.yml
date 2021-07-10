@@ -6,6 +6,7 @@ services:
       context: ./docker_image/redmine
       dockerfile: "Dockerfile"
     environment:
+      - APPBENCH_INSTALL_DIR="/var/www/redmine"
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
       - APPBENCH_DATABASE=$APPBENCH_DATABASE
       - APPBENCH_BENCHTOOL=$APPBENCH_BENCHTOOL
@@ -46,4 +47,4 @@ services:
       # - IMAP_SSL=true
       # - IMAP_INTERVAL=30
     ports:
-    - "3000:80"
+    - "3002:3000"

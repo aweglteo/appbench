@@ -2,7 +2,6 @@
 
 # start PostgreSQL
 
-startup_database
 /etc/init.d/postgresql start
 
 # create dartabase

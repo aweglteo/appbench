@@ -1,6 +1,6 @@
 rails_root = File.expand_path('../../', __FILE__)
 
-rails_env = ENV['staging'] || 'staging'
+rails_env = ENV['RAILS_ENV'] || 'staging'
 
 worker_processes 2
 
