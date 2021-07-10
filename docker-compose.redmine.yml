@@ -2,6 +2,8 @@ version: '2'
 
 services:
   redmine:
+    volumes:
+      - 'postgresql_data:/var/lib/postgresql'
     build:
       context: ./docker_image/redmine
       dockerfile: "Dockerfile"
@@ -48,3 +50,6 @@ services:
       # - IMAP_INTERVAL=30
     ports:
     - "3002:3000"
+volumes:
+  postgresql_data:
+    driver: local
