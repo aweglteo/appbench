@@ -1,0 +1,12 @@
+# chore
+.DS_Store
+
+# dependencies
+.bundle/*
+vendor/*
+
+# application
+result/*
+docker_image/discourse_sample/*
+docker-compose.discourse_sample.yml
+

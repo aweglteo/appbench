@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  redmine:
+    volumes:
+      - 'redmine_psql_data:/var/lib/postgresql'
+      - './scripts:/var/www/redmine/appbench/scripts'
+      - './lib:/opt/appbench/lib'
+      - './result:/var/www/redmine/result'
+    build:
+      context: ./docker_image/redmine
+      dockerfile: "Dockerfile"
+    environment:
+      - APPBENCH_INSTALL_DIR="/var/www/redmine"
+      - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
+      - APPBENCH_DATABASE=$APPBENCH_DATABASE
+      - APPBENCH_TARGET=$APPBENCH_TARGET
+      - SECRET_KEY_BASE=422813a913bb91e7b9bbce1cc499e0520bc1f43682ba305b54a307b3050ea4f6fa61dbd5c9f862ad0b5115b9efc47c636ea8b541956a175ab855558f6dba03fb
+    ports:
+    - "3002:3000"
+volumes:
+  redmine_psql_data:
+    driver: local

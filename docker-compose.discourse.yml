@@ -1,0 +1,26 @@
+version: '2'
+services:
+  discourse:
+    build:
+      context: ./docker_image/discourse
+      dockerfile: "Dockerfile"
+    volumes:
+      - 'discourse_psql_data:/var/lib/postgresql'
+      - 'discourse_assets:/var/www/discourse/public'
+      - './scripts:/var/www/discourse/appbench/scripts'
+      - './lib:/opt/appbench/lib'
+      - './result:/var/www/discourse/result'
+    ports:
+      - '3000:3000'
+    environment:
+      - APPBENCH_INSTALL_DIR="/var/www/discourse"
+      - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
+      - APPBENCH_DATABASE=$APPBENCH_DATABASE
+      - APPBENCH_TARGET=$APPBENCH_TARGET
+    stdin_open: true
+    tty: true
+volumes:
+  discourse_psql_data:
+    driver: local
+  discourse_assets:
+    driver: local
