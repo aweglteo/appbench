@@ -2,8 +2,7 @@
 
 Easy measure rails benchmark in your developing ruby
 
-## build your ruby
-!! work in progress !!
+## build your ruby(work in progress)
 ```
 git clone https://github.com/ruby/ruby ./ruby/dev_ruby/ruby
 docker-compose -f docker-compose.rubybuild.yml build
