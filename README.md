@@ -13,7 +13,7 @@ your ruby is built, and shared with app containers in "/home/devruby/bin/ruby"
 ## build app enviroment
 
 ```
-ruby run.rb build -a [ discourse | rubygems | redmine ]
+sudo ruby run.rb build -a [ discourse | rubygems | redmine ]
 ```
 
 ## exec bench
@@ -21,7 +21,7 @@ ruby run.rb build -a [ discourse | rubygems | redmine ]
 build app enviroment before executing benchmark 
 
 ```
-ruby run.rb up -a [ discourse | rubygems | redmine ] -m [ throughput | rprof ]
+sudo ruby run.rb up -a [ discourse | rubygems | redmine ] -m [ throughput | rprof ]
 ```
 
 ## Dependencies
