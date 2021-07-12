@@ -11,7 +11,7 @@ rescue LoadError
 end
 
 default_port = 3000
-iterations = 100
+iterations = 50
 
 tests = [
   ["home", "/", {}]

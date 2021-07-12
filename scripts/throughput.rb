@@ -89,17 +89,5 @@ module AppBench
     def get_mem(pid)
       YAML.load `ruby appbench/scripts/memstats.rb #{pid} --yaml`
     end
-
-    def run(command, opt = nil)
-      exit_status =
-        if opt == :quiet
-          system(command, out: "/dev/null", err: :out)
-        else
-          system(command, out: $stdout, err: :out)
-        end
-    
-      abort("Command '#{command}' failed with exit status #{$?}") unless exit_status
-    end
-
   end
 end
