@@ -2,5 +2,3 @@
 database: postgres
 # designate appserver. for now supporting only unicorn
 appserver: unicorn
-# for now, supporting throughput, rprof (cprof will be supported soon)
-target: throughput

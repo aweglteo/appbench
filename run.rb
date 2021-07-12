@@ -11,6 +11,7 @@ METRICS_TYPES = %i(throughput rprof)
 @tar_app = ""
 @ruby_dir = nil
 @output_file = "output.txt"
+@metrics = "throughput"
 
 opts = OptionParser.new do |o|
   o.banner = "Usage: ruby script.rb [options]"
@@ -23,6 +24,9 @@ opts = OptionParser.new do |o|
   end
   o.on("-o", "--output [FILE]", "Output benchmark results to this filename") do |f|
     @output_file = f
+  end
+  o.on("-m", "--metrics METRICS", "Output benchmark results to this filename") do |m|
+    @metrics = m
   end
 end
 
@@ -42,7 +46,7 @@ config = open(__dir__ + '/config.yml', 'r') do |f|
 end
 
 # check args and config.yml 
-%i(database appserver target).each do |key|
+%i(database appserver).each do |key|
   if config[key.to_s].nil?
     puts "Error, check config.yml. all keys must be designated."
     exit
@@ -64,7 +68,7 @@ unless APP_TYPES.include?(@tar_app.intern)
   exit
 end
 
-unless METRICS_TYPES.include?(config["target"].intern)
+unless METRICS_TYPES.include?(@metrics&.intern)
   puts "Error, unsurpotted metrics type."
   exit
 end
@@ -72,7 +76,7 @@ end
 # pass benchtool config to DockerContainer thorought .env file
 `echo "APPBENCH_APPSERVER=#{config["appserver"]}" > #{Pathname(__dir__).join(".env")}`
 `echo "APPBENCH_DATABASE=#{config["database"]}" >> #{Pathname(__dir__).join(".env")}`
-`echo "APPBENCH_TARGET=#{config["target"]}" >> #{Pathname(__dir__).join(".env")}`
+`echo "APPBENCH_TARGET=#{@metrics}" >> #{Pathname(__dir__).join(".env")}`
 
 if ARGV.first == "build"
   system("docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} build", out: $stdout, err: :out)
