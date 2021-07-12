@@ -7,6 +7,4 @@ vendor/*
 
 # application
 result/*
-docker_image/discourse_sample/*
-docker-compose.discourse_sample.yml
-
+ruby/dev_ruby/*

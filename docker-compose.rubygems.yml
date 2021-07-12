@@ -15,6 +15,7 @@ services:
   rubygems:
     volumes:
       - 'rubygems_psql_data:/var/lib/postgresql'
+      - 'common_ruby:/home/devruby'
       - './scripts:/var/www/rubygems.org/appbench/scripts'
       - './lib:/opt/appbench/lib'
       - './result:/var/www/rubygems.org/result'
@@ -37,3 +38,6 @@ services:
 volumes:
   rubygems_psql_data:
     driver: local
+  common_ruby:
+    driver: local
+    

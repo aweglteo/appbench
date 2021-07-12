@@ -4,6 +4,7 @@ services:
   redmine:
     volumes:
       - 'redmine_psql_data:/var/lib/postgresql'
+      - 'common_ruby:/home/devruby'
       - './scripts:/var/www/redmine/appbench/scripts'
       - './lib:/opt/appbench/lib'
       - './result:/var/www/redmine/result'
@@ -20,4 +21,6 @@ services:
     - "3002:3000"
 volumes:
   redmine_psql_data:
+    driver: local
+  common_ruby:
     driver: local

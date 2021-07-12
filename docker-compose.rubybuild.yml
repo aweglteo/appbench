@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  rubybuild:
+    volumes:
+      - 'common_ruby:/home/workdir/install'
+      - './ruby/dev_ruby/ruby:/home/workdir/ruby'
+    build:
+      context: ./docker_image/rubybuild
+      dockerfile: "Dockerfile"
+volumes:
+  common_ruby:
+    driver: local

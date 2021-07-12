@@ -1,14 +1,23 @@
-## Appbench
+# Appbench
 
-rails benchmark tool
+Easy measure rails benchmark in your developing ruby
 
-### build app enviroment
+## build your ruby
+!! work in progress !!
+```
+git clone https://github.com/ruby/ruby ./ruby/dev_ruby/ruby
+docker-compose -f docker-compose.rubybuild.yml build
+docker-compose -f docker-compose.rubybuild.yml up
+```
+your ruby is built, and shared with app containers in "/home/devruby/bin/ruby" 
+
+## build app enviroment
 
 ```
 ruby run.rb build -a [ discourse | rubygems | redmine ]
 ```
 
-### exec bench
+## exec bench
 
 build app enviroment before executing benchmark 
 

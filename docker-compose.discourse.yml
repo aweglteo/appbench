@@ -7,6 +7,7 @@ services:
     volumes:
       - 'discourse_psql_data:/var/lib/postgresql'
       - 'discourse_assets:/var/www/discourse/public'
+      - 'common_ruby:/home/devruby'
       - './scripts:/var/www/discourse/appbench/scripts'
       - './lib:/opt/appbench/lib'
       - './result:/var/www/discourse/result'
@@ -23,4 +24,6 @@ volumes:
   discourse_psql_data:
     driver: local
   discourse_assets:
+    driver: local
+  common_ruby:
     driver: local
