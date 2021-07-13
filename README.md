@@ -28,7 +28,7 @@ then your ruby in `<project_root>/ruby/rubybuild/ruby/` is built and became exec
 
 3. Run benchmark
 ```
-docker-compose -f docker-compose.sample.yml up
+docker-compose -f docker-compose.redmine.yml up
 ```
 
 ## Dependencies
