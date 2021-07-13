@@ -1,27 +1,35 @@
 # Appbench
-
 Easy measure rails benchmark in your developing ruby
 
-## build your ruby(work in progress)
-```
-git clone https://github.com/ruby/ruby ./ruby/dev_ruby/ruby
-docker-compose -f docker-compose.rubybuild.yml build
-docker-compose -f docker-compose.rubybuild.yml up
-```
-your ruby is built, and shared with app containers in "/home/devruby/bin/ruby" 
-
-## build app enviroment
+## How to use
 
 ```
-sudo ruby run.rb build -a [ discourse | rubygems | redmine ]
+git clone https://github.com/aweglteo/appbench
 ```
 
-## exec bench
-
-build app enviroment before executing benchmark 
-
+then, put your ruby in `<project_root>/ruby/rubybuild/ruby/`.
+example 
 ```
-sudo ruby run.rb up -a [ discourse | rubygems | redmine ] -m [ throughput | rprof ]
+git clone https://github.com/ruby/ruby <project_root>/ruby/rubybuild
+```
+
+## Build and Run benchmark
+In the case of [redmine](https://github.com/redmine/redmine).
+
+1. Build application docker image
+```
+docker-compose -f docker-compose.redmine.yml build
+```
+
+2. Build your ruby in applocation container
+```
+docker-compose -f docker-compose.redmine.yml run redmine /tmp/install-ruby.sh
+```
+then your ruby in `<project_root>/ruby/rubybuild/ruby/` is built and became executable in app container.
+
+3. Run benchmark
+```
+sudo ruby run.rb up -a redmine -m throughput
 ```
 
 ## Dependencies
