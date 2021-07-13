@@ -7,21 +7,20 @@ Easy measure rails benchmark in your developing ruby
 git clone https://github.com/aweglteo/appbench
 ```
 
-then, put your ruby in `<project_root>/ruby/rubybuild/ruby/`.
-example 
+then, put your ruby in `<project_root>/ruby/rubybuild/ruby/`. for example,   
 ```
-git clone https://github.com/ruby/ruby <project_root>/ruby/rubybuild
+git clone https://github.com/ruby/ruby appbench/ruby/rubybuild
 ```
 
-## Build and Run benchmark
+### Build and Run benchmark
 In the case of [redmine](https://github.com/redmine/redmine).
 
-1. Build application docker image
+1. Build redmine docker image
 ```
 docker-compose -f docker-compose.redmine.yml build
 ```
 
-2. Build your ruby in applocation container
+2. Build your ruby in application container
 ```
 docker-compose -f docker-compose.redmine.yml run redmine /tmp/install-ruby.sh
 ```
