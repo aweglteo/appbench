@@ -32,9 +32,6 @@ end
 
 opts.parse!
 
-ARGS_TYPES = %i(build up)
-abort 'designate [build | up ]' unless ARGS_TYPES.include?(ARGV.first&.intern)
-
 if @tar_app.empty?
   puts "Sorry, designate target rails application with -a option. for now supporting these applications below."
   puts "  #{APP_TYPES.map(&:to_s).join(" ")}"
@@ -78,8 +75,5 @@ end
 `echo "APPBENCH_DATABASE=#{config["database"]}" >> #{Pathname(__dir__).join(".env")}`
 `echo "APPBENCH_TARGET=#{@metrics}" >> #{Pathname(__dir__).join(".env")}`
 
-if ARGV.first == "build"
-  system("docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} build", out: $stdout, err: :out)
-elsif ARGV.first == "up"
-  system("docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} up", out: $stdout, err: :out)
-end
+
+system("docker-compose -f #{Pathname(__dir__).join("docker-compose.#{@tar_app}.yml")} up", out: $stdout, err: :out)

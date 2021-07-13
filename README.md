@@ -29,7 +29,7 @@ then your ruby in `<project_root>/ruby/rubybuild/ruby/` is built and became exec
 
 3. Run benchmark
 ```
-sudo ruby run.rb up -a redmine -m throughput
+sudo ruby run.rb -a redmine -m throughput
 ```
 
 ## Dependencies
