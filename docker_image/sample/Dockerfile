@@ -1,7 +1,6 @@
 FROM debian:buster-slim
 
 ENV PG_MAJOR 13
-ENV RUBY_VERSION 2.7.2
 ENV RAILS_ENV production
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -46,16 +45,19 @@ RUN cd / &&\
     npm install -g terser &&\
     npm install -g uglify-js
 
+RUN  apt install -y gcc && \
+  apt install -y ruby subversion autoconf bison make git && \
+  apt install -y libgmp-dev libssl-dev zlib1g-dev libffi-dev libreadline-dev libgdbm-dev && \
+  apt install -y vim gdb
 
-RUN apt install -y zlib1g-dev
+RUN mkdir /opt/devruby
+
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/devruby/lib
+ENV PATH /opt/devruby/bin:$PATH
 
 
-RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
-    mkdir /src && cd /src && git clone https://github.com/sstephenson/ruby-build.git &&\
-    cd /src/ruby-build && ./install.sh &&\
-    cd / && rm -rf /src/ruby-build && (ruby-build $(echo $RUBY_VERSION) /usr/local)
-
-RUN gem update --system
+# Install benchmark tools
+RUN apt-get install -y apache2-utils libsqlite3-dev
 
 # Install redmine
 RUN useradd redmine -s /bin/bash -m -U &&\
@@ -66,11 +68,6 @@ RUN useradd redmine -s /bin/bash -m -U &&\
     chown -R redmine:redmine /var/www/redmine &&\
     cd /var/www/redmine
 
-WORKDIR /var/www/redmine
-
-# Install benchmark tools
-RUN apt-get install -y apache2-utils libsqlite3-dev
-
 RUN chown -R redmine /var/run/postgresql
 # create role "redmine"
 RUN /etc/init.d/postgresql start &&\
@@ -80,16 +77,11 @@ RUN /etc/init.d/postgresql start &&\
 # copy setting files
 COPY /approot/ /var/www/redmine/
 
-RUN bundle config set --local without 'development test' && bundle install --jobs 3 --retry 5
-RUN bundle config set --local without 'development test' && bundle clean --force
-
-RUN gem install facter
-
 COPY /rootfs/tmp /tmp
 RUN chmod -R +x /tmp
 
-RUN chown -R redmine /var/www/redmine
+WORKDIR /var/www/redmine
 
 EXPOSE 3000
 
-ENTRYPOINT [ "/tmp/entrypoint.sh" ]
+CMD [ "/tmp/entrypoint.sh" ]

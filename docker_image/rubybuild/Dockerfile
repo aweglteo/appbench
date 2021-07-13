@@ -24,4 +24,10 @@ COPY /rootfs/tmp /tmp
 RUN chmod -R +x /tmp
 WORKDIR /home/workdir/ruby
 
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/home/workdir/install/lib
+ENV PATH $PATH:/home/workdir/install/bin
+
+
+
+
 CMD [ "/tmp/entrypoint.sh" ]

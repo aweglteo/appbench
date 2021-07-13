@@ -5,10 +5,9 @@ require "fileutils"
 
 module AppBench
   class RProf
-    def initialize(paths, port, worker_num = 3)
+    def initialize(paths, port)
       @paths = paths
       @port = port
-      @unicorn_workers = worker_num
     end
 
     def start
@@ -20,11 +19,9 @@ module AppBench
           @port += 1
         end
 
-        ENV['UNICORN_PORT'] = @port.to_s
-        ENV['UNICORN_WORKERS'] = @unicorn_workers.to_s
         FileUtils.mkdir_p(File.join('tmp', 'pids'))
         FileUtils.mkdir_p('stackprof')
-        pid = spawn("ENABLE_STACKPROF=1 bundle exec unicorn -c config/unicorn.conf.rb")
+        pid = spawn("ENABLE_STACKPROF=1 bundle exec puma -w 3 -p #{@port} -e production")
         
         while port_available?
           sleep 1

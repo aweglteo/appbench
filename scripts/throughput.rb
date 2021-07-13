@@ -5,11 +5,10 @@ require "fileutils"
 
 module AppBench
   class Throughput
-    def initialize(tests, port, iterations = 30, worker_num = 3)
+    def initialize(tests, port, iterations = 30)
       @tests = tests
       @port = port
       @iterations = iterations
-      @unicorn_workers = worker_num
     end
 
     def start
@@ -21,10 +20,8 @@ module AppBench
           @port += 1
         end
 
-        ENV['UNICORN_PORT'] = @port.to_s
-        ENV['UNICORN_WORKERS'] = @unicorn_workers.to_s
         FileUtils.mkdir_p(File.join('tmp', 'pids'))
-        pid = spawn("bundle exec unicorn -c config/unicorn.conf.rb")
+        pid = spawn("bundle exec puma -w 3 -p #{@port} -e production")
         
         while port_available?
           sleep 1
@@ -46,7 +43,7 @@ module AppBench
           "pp_pss_kb" => "#{mem["pss_kb"]} KB"
         )
 
-        child_pids = `ps u --ppid #{pid} | grep unicorn | awk '{ print $2; }' | grep -v PID`.split("\n")
+        child_pids = `ps u --ppid #{pid} | grep puma | awk '{ print $2; }' | grep -v PID`.split("\n")
 
         child_pids.each do |child|
           mem = get_mem(child)

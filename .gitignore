@@ -7,4 +7,4 @@ vendor/*
 
 # application
 result/*
-ruby/dev_ruby/*
+ruby/rubybuild/*
