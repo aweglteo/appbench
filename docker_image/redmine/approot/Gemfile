@@ -10,6 +10,7 @@ gem 'net-smtp'
 gem 'net-imap'
 gem 'rexml'
 gem 'puma'
+gem 'facter'
 
 gem 'rails', '6.1.4'
 gem 'rouge', '~> 3.26.0'
@@ -24,7 +25,7 @@ gem 'nokogiri', '~> 1.11.1'
 gem 'i18n', '~> 1.8.2'
 gem "rbpdf", "~> 1.20.0"
 gem 'addressable'
-gem 'rubyzip', '~> 2.3.0'
+gem 'rubyzip'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin]

@@ -3,24 +3,33 @@ version: '2'
 services:
   redmine:
     volumes:
-      - 'redmine_psql_data:/var/lib/postgresql'
-      - 'common_ruby:/home/devruby'
+      - './ruby/rubybuild:/home/rubybuild'
       - './scripts:/var/www/redmine/appbench/scripts'
       - './lib:/opt/appbench/lib'
       - './result:/var/www/redmine/result'
-    build:
-      context: ./docker_image/redmine
-      dockerfile: "Dockerfile"
+      - 'redmine_psql_data:/var/lib/postgresql'
+      - 'redmine_ruby_data:/opt/devruby'
+      - 'redmine_bundle_data:/var/www/redmine/vendor/bundle'
     environment:
       - APPBENCH_INSTALL_DIR="/var/www/redmine"
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
       - APPBENCH_DATABASE=$APPBENCH_DATABASE
       - APPBENCH_TARGET=$APPBENCH_TARGET
       - SECRET_KEY_BASE=422813a913bb91e7b9bbce1cc499e0520bc1f43682ba305b54a307b3050ea4f6fa61dbd5c9f862ad0b5115b9efc47c636ea8b541956a175ab855558f6dba03fb
+    build:
+      context: ./docker_image/redmine
+      dockerfile: "Dockerfile"
     ports:
-    - "3002:3000"
+    - "3008:3000"
+    stdin_open: true
+    tty: true
 volumes:
   redmine_psql_data:
     driver: local
-  common_ruby:
+  redmine_ruby_data:
     driver: local
+  redmine_bundle_data:
+    driver: local
+
+# rubyのworkdir : /home/rubybuild
+# rubyのinstalldir : /opt/devruby
