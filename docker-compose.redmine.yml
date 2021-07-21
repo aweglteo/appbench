@@ -9,7 +9,7 @@ services:
       - './result:/var/www/redmine/result'
       - 'redmine_psql_data:/var/lib/postgresql'
       - 'redmine_ruby_data:/opt/devruby'
-      - 'redmine_bundle_data:/var/www/redmine/vendor/bundle'
+      - 'redmine_data:/var/www/redmine'
     environment:
       - APPBENCH_INSTALL_DIR="/var/www/redmine"
       - APPBENCH_APPSERVER=$APPBENCH_APPSERVER
@@ -28,7 +28,7 @@ volumes:
     driver: local
   redmine_ruby_data:
     driver: local
-  redmine_bundle_data:
+  redmine_data:
     driver: local
 
 # rubyのworkdir : /home/rubybuild
